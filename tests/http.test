@@ -1,0 +1,26 @@
+# 
+# Copyright Jerily LTD. All Rights Reserved.
+# SPDX-FileCopyrightText: 2026 Neofytos Dimitriou (neo@jerily.cy)
+# SPDX-License-Identifier: MIT.
+# 
+
+package require tcltest 2
+namespace import ::tcltest::test
+lappend ::auto_path [file dirname [file dirname [file normalize [info script]]]]
+package require pure-tcl-aws-iam 0.1.0
+set endpoint [lindex $argv 0]
+set argv {}
+set c [::aws::iam::create [dict create region us-east-1 endpoint $endpoint aws_access_key_id test aws_secret_access_key test aws_session_token temporary-token]]
+test iam-create {Query encoding and role result fields} -body {
+    $c create_role role {{"Version":"2012-10-17"}}
+} -result {role_name role role_id id arn arn}
+test iam-list {pagination and legacy date/boolean formats} -body {
+    set p [lindex [$c list_policies] 0]
+    list [dict get $p policy_name] [dict get $p create_date] [dict get $p is_attachable] [dict get $p attachment_count]
+} -result {policy 2026-01-02 1 3}
+test iam-delete {delete role result} -body {$c delete_role role} -result {}
+
+$c destroy
+set failed $::tcltest::numTests(Failed)
+::tcltest::cleanupTests
+exit [expr {$failed > 0}]
