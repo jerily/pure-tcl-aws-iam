@@ -56,5 +56,5 @@ proc ::aws::iam::_list_policies {client} {
         } finally {$doc delete}
     }
 }
-package provide pure-tcl-aws-iam 0.1.1
+package provide pure-tcl-aws-iam 1.0.0
 package provide awsiam 1.0.19
