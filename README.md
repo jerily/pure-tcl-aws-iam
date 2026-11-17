@@ -5,7 +5,7 @@ AWS IAM client implemented in Tcl 9.1. Its only package dependency is
 HTTP, JSON, XML, credentials and signing. No AWS C++ SDK is required.
 
 ```tcl
-package require pure-tcl-aws-iam 0.1.1
+package require pure-tcl-aws-iam 1.0.0
 set client [::aws::iam::create {region us-east-1}]
 try {
     puts [$client list_policies]
