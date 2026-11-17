@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: MIT.
 # 
 
-package require pure-tcl-aws-core 0.1.0
+package require pure-tcl-aws-core 1.0.0
 namespace eval ::aws::iam {namespace path ::aws::core}
 ::aws::core::register iam {create_role delete_role list_policies}
 
@@ -56,5 +56,5 @@ proc ::aws::iam::_list_policies {client} {
         } finally {$doc delete}
     }
 }
-package provide pure-tcl-aws-iam 0.1.0
+package provide pure-tcl-aws-iam 0.1.1
 package provide awsiam 1.0.19
